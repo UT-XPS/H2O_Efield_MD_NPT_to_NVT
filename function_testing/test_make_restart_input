@@ -1,0 +1,31 @@
+def make_restart_input(old_dat_path,old_dat_delimm,finalpos_path,finalpos_delimm,log_path,log_delimm,output_path,first_step,last_step):
+	output_list = []
+	ave_lengths = get_ave_lenghts(log_path,log_delimm,first_step,last_step)
+	new_header = get_new_header(old_dat_path,old_dat_delimm,ave_lengths)
+	output_list += new_header
+	new_atoms = get_new_atoms(finalpos_path,finalpos_delimm,ave_lengths)
+	output_list += ["Atoms\n","\n"]
+	output_list += new_atoms
+	bonds_and_angles = get_bonds_angles(old_dat_path,old_dat_delimm)
+	output_list += ["\n"]
+	output_list += bonds_and_angles
+	velocities = get_new_velocities(finalpos_path,finalpos_delimm)
+	output_list += ["\n","Velocities\n","\n"]
+	output_list += velocities
+	output(output_path,output_list)
+
+############################################################
+
+old_dat_path = "./water.dat"
+old_dat_delimm = "\t"
+finalpos_path = "./finalpos.dump"
+finalpos_delimm = " "
+log_path = "./log.lammps"
+log_delimm = " "
+output_path = "./1test.new_water.dat"
+first_step = 80000
+last_step = 150000
+
+make_restart_input(old_dat_path,old_dat_delimm,finalpos_path,finalpos_delimm,log_path,log_delimm,output_path,first_step,last_step)
+
+#output written into 1test.new.water.dat

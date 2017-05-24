@@ -1,0 +1,15 @@
+def output(file_path,output_list):
+        file = open(file_path,"w")
+        file.writelines(output_list)
+        file.close()
+
+############################################################
+
+file_path = "./output_test_1"
+string1 = "eila\n"
+string2 = "veel\n"
+string3 = "jne...\n"
+output_list = [string1,string2,string3]
+output(file_path,output_list)
+
+# results in output_test_1

@@ -1,0 +1,73 @@
+def get_new_header(file_path,delimm,ave_lengths):
+        old_dat_lines = get_lines(file_path,delimm)
+        new_header_lines = []
+        use = True 
+        for line in old_dat_lines:
+                if len(line) > 0:
+                        if line[0] == 'Atoms':
+                                use = False
+                if use == True:
+                        new_header_lines += [line]
+        index = 0
+        for line in new_header_lines:
+                if 'xlo xhi' in line:
+                        new_header_lines[index] = [format(0.0,'.6f'),format(ave_lengths[0],'.6f'),'xlo xhi']
+                if 'ylo yhi' in line:
+                        new_header_lines[index] = [format(0.0,'.6f'),format(ave_lengths[1],'.6f'),'ylo yhi']
+                if 'zlo zhi' in line:
+                        new_header_lines[index] = [format(0.0,'.6f'),format(ave_lengths[2],'.6f'),'zlo zhi']
+                index += 1
+        new_header = put_delimiters_back(new_header_lines,delimm)
+        return new_header
+
+############################################################
+
+
+file_path = "./water.dat" 
+delimm = "\t"   
+ave_lengths = [30.114559276231347, 30.114559276231347, 30.114559276231347]
+
+for item in get_new_header(file_path,delimm,ave_lengths):                 
+    ...:     print item
+
+LAMMPS H2O ice input file
+
+3000	atoms
+
+2000	bonds
+
+1000	angles
+
+0	dihedrals
+
+0	impropers
+
+2	atom types
+
+1	bond types
+
+1	angle types
+
+0	dihedral types
+
+0	improper types
+
+
+
+0.000000	30.114559	xlo xhi
+
+0.000000	30.114559	ylo yhi
+
+0.000000	30.114559	zlo zhi
+
+
+
+Masses
+
+
+
+1	15.999400
+
+2	1.008000
+
+

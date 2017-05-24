@@ -1,0 +1,55 @@
+def get_ave_lenghts(file_path,delimm,first_step,last_step):
+        log_lines = get_lines(file_path,delimm)
+        used_lines = []
+        use = False
+        for line in log_lines:
+                if use == False:
+                        if str(first_step) in line:
+                                nospace_line = []
+                                for element in line:
+                                        if element != '':
+                                                nospace_line += [element]
+                                if nospace_line[0] == str(first_step):
+                                        use = True
+                if use == True:
+                        nospace_line = []
+                        for element in line:
+                                if element != '':
+                                        nospace_line += [element]
+                        if nospace_line[0] != 'SHAKE':
+                                if int(nospace_line[0]) > last_step:
+                                        use = False
+                                        print "WARNING! Last step not found"
+                if use == True:
+                        nospace_line = []
+                        for element in line:
+                                if element != '':
+                                        nospace_line += [element]
+                        if nospace_line[0] not in ['SHAKE','1']:
+                                used_lines += [nospace_line]
+                                if int(nospace_line[0]) == last_step:
+                                        use = False
+        xvals = []
+        yvals = []
+        zvals = []
+        for line in used_lines:
+                xvals += [float(line[8])]
+                yvals += [float(line[9])]
+                zvals += [float(line[10])]
+        ave_x = average(xvals)
+        ave_y = average(yvals)
+        ave_z = average(zvals)
+        ave_lengths = [ave_x,ave_y,ave_z]
+        return ave_lengths
+
+############################################################
+
+file_path = "./log.lammps"
+delimm = " " 
+first_step = 80000
+last_step = 150000
+get_ave_lenghts(file_path,delimm,first_step,last_step)
+
+[30.114559276231347, 30.114559276231347, 30.114559276231347]
+
+## Verified by doing the same manually in qtiplot

@@ -1,0 +1,19 @@
+def put_delimiters_back(lines_list,delimm):
+        delimlines_list = []
+        for line in lines_list:
+                newstring = ''
+                for element in line:
+                        if newstring != '':
+                                newstring += delimm
+                        newstring += str(element)
+                newstring += '\n'
+                delimlines_list += [newstring]
+        return delimlines_list
+
+############################################################
+
+lines_list = [[1,2,3],[1.0,2.0,3.0],["a","bc","d"]]
+delimm = " "
+put_delimiters_back(lines_list,delimm)
+
+['1 2 3\n', '1.0 2.0 3.0\n', 'a bc d\n']
